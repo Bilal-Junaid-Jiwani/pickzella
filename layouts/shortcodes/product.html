@@ -28,7 +28,7 @@
   {{ if $pick }}<span class="pick-ribbon pick-{{ $pick | urlize }}">{{ $pick }}</span>{{ end }}
   {{ if $score }}<span class="score-badge" title="Pickzella score">{{ $score }}</span>{{ end }}
   {{ if $isPlaceholder }}
-  <span class="ph-flag">⚠ Placeholder product — replace ASIN &amp; details before launch</span>
+  <span class="ph-flag">⚠ Placeholder product: replace ASIN &amp; details before launch</span>
   {{ end }}
   <h3>{{ .Get "name" }}</h3>
   {{ with .Get "image" }}

@@ -58,7 +58,7 @@
       results.innerHTML = hits.length ? hits.map(function(p){
         return '<a href="'+p.url+'"><span class="rk">'+p.category+
           '</span><span class="rt">'+p.title+'</span></a>';
-      }).join('') : '<a><span class="rt">No guides found — try another keyword.</span></a>';
+      }).join('') : '<a><span class="rt">No guides found. Try another keyword.</span></a>';
     }
     document.getElementById('searchOpen').addEventListener('click', open);
     overlay.addEventListener('click', function(e){ if (e.target === overlay) close(); });
@@ -95,7 +95,7 @@
       <div class="nl-popup-body">
         <span class="nl-popup-badge"><span class="dot"></span>Weekly picks</span>
         <h2>One honest pick,<br>every week.</h2>
-        <p>A single well-researched product recommendation in your inbox. No spam, no fluff — unsubscribe anytime.</p>
+        <p>A single well-researched product recommendation in your inbox. No spam, no fluff. Unsubscribe anytime.</p>
         <form class="nl-popup-form" action="#" method="post" onsubmit="return false">
           <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
           <button class="btn" type="submit">Subscribe</button>

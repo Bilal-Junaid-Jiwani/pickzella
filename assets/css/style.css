@@ -267,16 +267,18 @@ table.compare tbody tr:nth-child(even){background:var(--wash)}
 .hero-stats div{display:flex;flex-direction:column}
 .hero-stats strong{font-size:30px;letter-spacing:-.03em;color:var(--ink)}
 .hero-stats span{font-size:13px;color:var(--faint);font-weight:600}
+.hero-caption{margin:10px 4px 0;font-size:13px;color:var(--faint)}
+.hero-caption{margin:10px 4px 0;font-size:13px;color:var(--faint)}
 .hero2-visual{position:relative}
 .hero2-visual>img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;box-shadow:0 30px 70px rgba(13,110,95,.16)}
-.float-card{position:absolute;background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 18px;box-shadow:0 16px 40px rgba(15,25,35,.14);display:flex;flex-direction:column;gap:2px;max-width:230px}
-.fc1{left:-24px;bottom:38px;animation:float 5s ease-in-out infinite}
-.fc2{right:-14px;top:30px;animation:float 6s ease-in-out infinite reverse}
-.fc-tag{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent)}
+
+
+
+
 .float-card strong{font-size:14.5px;letter-spacing:-.01em}
-.fc-meta{font-size:12px;color:var(--faint)}
+
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-@media(prefers-reduced-motion:reduce){.fc1,.fc2{animation:none}}
+@media(prefers-reduced-motion:reduce){.fc1,}
 
 /* ---------- trending strip ---------- */
 .trend-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:6px 0 10px}
@@ -311,17 +313,17 @@ table.compare tbody tr:nth-child(even){background:var(--wash)}
 .fineprint{margin-top:22px;font-size:14px;color:var(--muted)}
 
 /* ---------- newsletter ---------- */
-.newsletter{background:var(--accent-ink);color:#fff;margin:70px 0 0;padding:56px 0 40px}
-.newsletter-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+
+
 .newsletter h2{color:#fff;margin:0 0 10px;font-size:clamp(24px,3vw,32px)}
 .newsletter p{color:rgba(255,255,255,.82);margin:0;font-size:16px;max-width:440px}
-.nl-form{display:flex;gap:10px}
+
 .nl-form input{flex:1;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);border-radius:8px;padding:14px 18px;font-size:16px;color:#fff;font-family:var(--sans);outline:none;min-width:0}
 .nl-form input::placeholder{color:rgba(255,255,255,.55)}
 .nl-form input:focus{border-color:#fff;background:rgba(255,255,255,.16)}
 .btn-light{background:#fff;color:var(--accent-ink);border:none;cursor:pointer;white-space:nowrap}
 .btn-light:hover{background:var(--accent-soft);color:var(--accent-ink)}
-.nl-note{font-size:12.5px;color:rgba(255,255,255,.55);margin-top:18px}
+
 
 /* ---------- scroll reveal ---------- */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
@@ -332,11 +334,11 @@ table.compare tbody tr:nth-child(even){background:var(--wash)}
 @media(max-width:1020px){
   .hero2-grid{grid-template-columns:1fr;gap:40px}
   .hero2-visual{max-width:640px}
-  .fc1{left:12px}.fc2{right:12px}
+  
   .trend-strip{grid-template-columns:repeat(2,1fr)}
   .cat-showcase{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr)}
-  .newsletter-grid{grid-template-columns:1fr;gap:24px}
+  
 }
 @media(max-width:640px){
   .hero2{padding:44px 0 40px}
@@ -345,12 +347,12 @@ table.compare tbody tr:nth-child(even){background:var(--wash)}
   .cat-showcase{grid-template-columns:1fr}
   .cat-card{min-height:220px}
   .steps{grid-template-columns:1fr}
-  .nl-form{flex-direction:column}
-  .float-card{max-width:190px;padding:10px 14px}
+  
+  
 }
 
 @media(max-width:640px){
-  .float-card{display:none}
+  
 }
 
 /* ============ PRO TRUST COMPONENTS (Wirecutter/RTINGS/Tom's Guide patterns) ============ */
@@ -415,3 +417,30 @@ table.compare tbody tr:nth-child(even){background:var(--wash)}
   .nl-popup-form{flex-direction:column}
 }
 @media(prefers-reduced-motion:reduce){.nl-popup,.nl-popup-card{transition:none}}
+
+/* ============ NEWSLETTER SECTION (premium card) ============ */
+.newsletter-section{padding:72px 0}
+.nl-card{display:grid;grid-template-columns:1.1fr 1fr;background:linear-gradient(135deg,#0B3B36 0%,#0F766E 60%,#14A085 100%);border-radius:28px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(11,59,54,.28)}
+.nl-card::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 85% 10%,rgba(255,255,255,.14),transparent 60%),radial-gradient(500px 400px at 10% 100%,rgba(0,0,0,.18),transparent 60%);pointer-events:none}
+.nl-card-copy{padding:56px 52px;position:relative;z-index:1;color:#fff}
+.nl-badge{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#5EEAD4;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:7px 14px;border-radius:100px;margin-bottom:20px}
+.nl-badge .dot{width:7px;height:7px;border-radius:50%;background:#5EEAD4}
+.nl-card-copy h2{margin:0 0 14px;font-size:clamp(30px,4vw,44px);letter-spacing:-.03em;line-height:1.08;color:#fff}
+.nl-lede{margin:0 0 24px;font-size:16.5px;line-height:1.6;color:rgba(255,255,255,.82);max-width:42ch}
+.nl-points{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:12px}
+.nl-points li{display:flex;align-items:center;gap:10px;font-size:14.5px;color:rgba(255,255,255,.9)}
+.nl-points svg{color:#5EEAD4;flex-shrink:0}
+.nl-card .nl-form{display:flex;gap:10px;max-width:440px}
+.nl-card .nl-form input{flex:1;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);border-radius:10px;padding:14px 18px;font-size:15px;color:#fff;font-family:var(--sans);outline:none;min-width:0;transition:all .15s}
+.nl-card .nl-form input::placeholder{color:rgba(255,255,255,.5)}
+.nl-card .nl-form input:focus{border-color:#5EEAD4;background:rgba(255,255,255,.18)}
+.nl-card .nl-form .btn{white-space:nowrap;border:none;cursor:pointer;font-weight:700}
+.nl-card-art{position:relative;min-height:100%}
+.nl-card-art img{width:100%;height:100%;object-fit:cover;display:block}
+.nl-card-art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0F766E 0%,transparent 35%)}
+@media(max-width:860px){
+  .nl-card{grid-template-columns:1fr}
+  .nl-card-art{display:none}
+  .nl-card-copy{padding:44px 30px}
+  .nl-card .nl-form{flex-direction:column}
+}

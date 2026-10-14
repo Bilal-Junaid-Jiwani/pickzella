@@ -7,7 +7,7 @@
     <div class="hero2-copy">
       <div class="hero-badge"><span class="dot"></span>16 research-backed buying guides</div>
       <h1>Honest picks.<br><span class="accent-word">No hype.</span></h1>
-      <p class="lede">We compare the specs, read hundreds of buyer reviews, and list the cons — even on products we link to. So you buy once, and buy right.</p>
+      <p class="lede">We compare the specs, read hundreds of buyer reviews, and list the cons, even on products we link to. So you buy once, and buy right.</p>
       <div class="hero-ctas">
         <a class="btn" href="{{ "posts/" | absURL }}">Browse all guides</a>
         <a class="btn-ghost" href="#how-we-pick">How we pick</a>
@@ -15,21 +15,12 @@
       <div class="hero-stats">
         <div><strong>16</strong><span>in-depth guides</span></div>
         <div><strong>4</strong><span>categories</span></div>
-        <div><strong>0</strong><span>paid placements</span></div>
+        <div><strong>Oct 2026</strong><span>content updated</span></div>
       </div>
     </div>
     <div class="hero2-visual">
       <img src="{{ "images/site/pickzella-hero.webp" | relURL }}" alt="Top-rated fitness, tech and home products picked by Pickzella" fetchpriority="high" width="1200" height="900">
-      <div class="float-card fc1">
-        <span class="fc-tag">Top pick</span>
-        <strong>Resistance bands set</strong>
-        <span class="fc-meta">Fitness · 9 min read</span>
-      </div>
-      <div class="float-card fc2">
-        <span class="fc-tag">Trending</span>
-        <strong>Wireless earbuds under $50</strong>
-        <span class="fc-meta">Tech · 5 min read</span>
-      </div>
+      <p class="hero-caption">This week's research: resistance bands, earbuds, air fryers &amp; more.</p>
     </div>
   </div>
 </section>
@@ -43,7 +34,6 @@
     <a class="trend-card" href="{{ $p.RelPermalink }}">
       <span class="trend-num">{{ add $i 1 }}</span>
       <div>
-        <span class="kicker">{{ range first 1 $p.Params.categories }}{{ . }}{{ end }}</span>
         <h3>{{ $p.Title }}</h3>
         <span class="meta">{{ $p.ReadingTime }} min read</span>
       </div>
@@ -78,7 +68,6 @@
     <a class="post-card" href="{{ $p.RelPermalink }}">
       {{ with $p.Params.image }}<img src="{{ . }}" alt="{{ $p.Params.image_alt | default $p.Title }}" loading="lazy" width="800" height="450">{{ end }}
       <div class="body">
-        <span class="kicker">{{ range first 1 $p.Params.categories }}{{ . }}{{ end }}</span>
         <h3>{{ $p.Title }}</h3>
         <p>{{ $p.Params.description | truncate 105 }}</p>
         <div class="meta">{{ $p.Date.Format "Jan 2, 2006" }} · {{ $p.ReadingTime }} min</div>
@@ -90,30 +79,40 @@
   {{/* ============ HOW WE PICK ============ */}}
   <section class="how-pick" id="how-we-pick">
     <div class="section-head"><h2>How we pick products</h2></div>
-    <p class="section-sub">Every guide follows the same research process — no paid placements, ever.</p>
+    <p class="section-sub">Every guide follows the same research process. No paid placements, ever.</p>
     <div class="steps">
       <div class="step"><span class="step-num">1</span><h3>Define the use case</h3><p>Who the guide is for, stated up front — no one-size-fits-all claims.</p></div>
       <div class="step"><span class="step-num">2</span><h3>Compare the specs</h3><p>Side-by-side numbers that actually affect ownership and daily use.</p></div>
       <div class="step"><span class="step-num">3</span><h3>Read buyers in bulk</h3><p>Recurring praise and complaints across hundreds of reviews is signal.</p></div>
       <div class="step"><span class="step-num">4</span><h3>Weigh value over hype</h3><p>90% of the performance for 50% of the price usually wins.</p></div>
     </div>
-    <p class="fineprint">We earn from qualifying purchases via affiliate links — read our <a href="{{ "disclosure/" | absURL }}">affiliate disclosure</a>.</p>
+    <p class="fineprint">We earn from qualifying purchases via affiliate links. Read our <a href="{{ "disclosure/" | absURL }}">affiliate disclosure</a>.</p>
   </section>
 
 </div>
 
 {{/* ============ NEWSLETTER ============ */}}
-<section class="newsletter">
-  <div class="wide newsletter-grid">
-    <div>
-      <h2>One honest pick, every week.</h2>
-      <p>Join the list — a single well-researched product recommendation in your inbox. No spam, unsubscribe anytime.</p>
+<section class="newsletter-section">
+  <div class="wide">
+    <div class="nl-card">
+      <div class="nl-card-copy">
+        <span class="nl-badge"><span class="dot"></span>Newsletter</span>
+        <h2>One honest pick,<br>every week.</h2>
+        <p class="nl-lede">A single well-researched product recommendation in your inbox. Buy once, buy right.</p>
+        <ul class="nl-points">
+          <li><svg viewBox="0 0 20 20" width="16" height="16" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>No spam, no fluff. One email a week</li>
+          <li><svg viewBox="0 0 20 20" width="16" height="16" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Unsubscribe anytime, one click</li>
+          <li><svg viewBox="0 0 20 20" width="16" height="16" fill="none"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read by smart shoppers</li>
+        </ul>
+        <form class="nl-form" action="#" method="post" onsubmit="return false">
+          <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+          <button class="btn btn-light" type="submit">Subscribe free</button>
+        </form>
+      </div>
+      <div class="nl-card-art">
+        <img src="{{ "images/site/pickzella-hero.webp" | relURL }}" alt="Top-rated products researched by Pickzella" loading="lazy" width="800" height="600">
+      </div>
     </div>
-    <form class="nl-form" action="#" method="post" onsubmit="return false">
-      <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
-      <button class="btn btn-light" type="submit">Subscribe</button>
-    </form>
   </div>
-  <p class="nl-note wide">Connect a form backend (Formspree, ConvertKit) to activate signups.</p>
 </section>
 {{ end }}
