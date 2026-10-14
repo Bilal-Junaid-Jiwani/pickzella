@@ -1,0 +1,60 @@
+{{/* ============================================================
+   Product card shortcode — Amazon affiliate.
+   Usage:
+   {{< product
+       asin="B0EXAMPLE1"
+       name="Example Resistance Band Set"
+       image="/images/products/resistance-bands.webp"
+       image_alt="Set of 5 color-coded resistance bands with handles"
+       price="$29.99"
+       features="5 stackable bands (10–150 lbs)|Anti-snap latex core|Handles, ankle straps & door anchor included"
+       pros="Covers a wide resistance range|Portable — no gym needed"
+       cons="Bands can roll on bare skin|Handles feel basic" >}}
+   - asin:   the product's Amazon ASIN. PLACEHOLDER ASINs must be replaced
+             with real ones before launch (cards are flagged automatically).
+   - features/pros/cons: pipe-separated lists.
+   Sets a page flag so the article auto-shows the affiliate disclosure box.
+   ============================================================ */}}
+{{ .Page.Scratch.Set "hasAffiliate" true }}
+{{ $asin := .Get "asin" | default "B0PLACEHOLDER" }}
+{{ $tag := .Site.Params.amazonTag }}
+{{ $isPlaceholder := or (not $tag) (hasPrefix $asin "B0PLACEHOLDER") }}
+{{ $url := printf "https://www.amazon.com/dp/%s" $asin }}
+{{ if $tag }}{{ $url = printf "%s?tag=%s" $url $tag }}{{ end }}
+
+{{ $pick := .Get "pick" | default "" }}
+{{ $score := .Get "score" | default "" }}
+<div class="product-card{{ if $isPlaceholder }} placeholder{{ end }}">
+  {{ if $pick }}<span class="pick-ribbon pick-{{ $pick | urlize }}">{{ $pick }}</span>{{ end }}
+  {{ if $score }}<span class="score-badge" title="Pickzella score">{{ $score }}</span>{{ end }}
+  {{ if $isPlaceholder }}
+  <span class="ph-flag">⚠ Placeholder product — replace ASIN &amp; details before launch</span>
+  {{ end }}
+  <h3>{{ .Get "name" }}</h3>
+  {{ with .Get "image" }}
+  <div class="pimg"><img src="{{ . }}" alt="{{ $.Get "image_alt" | default ($.Get "name") }}" loading="lazy" width="400" height="600"></div>
+  {{ end }}
+  <p><strong>Key features:</strong></p>
+  <ul>
+    {{ range split (.Get "features" | default "") "|" }}
+      {{ if . }}<li>{{ . }}</li>{{ end }}
+    {{ end }}
+  </ul>
+  <div class="pros-cons">
+    <div class="pros"><strong>✓ Pros</strong><ul>
+      {{ range split (.Get "pros" | default "") "|" }}{{ if . }}<li>{{ . }}</li>{{ end }}{{ end }}
+    </ul></div>
+    <div class="cons"><strong>✕ Cons</strong><ul>
+      {{ range split (.Get "cons" | default "") "|" }}{{ if . }}<li>{{ . }}</li>{{ end }}{{ end }}
+    </ul></div>
+  </div>
+  <div class="cta-row deal-row">
+    {{ with .Get "price" }}<span class="price">{{ . }}</span>{{ end }}
+    <a class="btn" href="{{ $url }}" target="_blank" rel="nofollow sponsored noopener">Check Price on Amazon</a>
+    <span class="price-note">Price checked {{ now.Format "January 2006" }} · may change</span>
+  </div>
+  {{ if not $tag }}
+  <p class="tag-warning">⚠ No Amazon Associates tag configured — set <code>params.amazonTag</code> in <code>hugo.toml</code> before launch.</p>
+  {{ end }}
+  <div style="clear:both"></div>
+</div>
