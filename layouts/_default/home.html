@@ -1,0 +1,119 @@
+{{ define "main" }}
+{{ $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+
+{{/* ============ HERO ============ */}}
+<section class="hero2">
+  <div class="wide hero2-grid">
+    <div class="hero2-copy">
+      <div class="hero-badge"><span class="dot"></span>16 research-backed buying guides</div>
+      <h1>Honest picks.<br><span class="accent-word">No hype.</span></h1>
+      <p class="lede">We compare the specs, read hundreds of buyer reviews, and list the cons — even on products we link to. So you buy once, and buy right.</p>
+      <div class="hero-ctas">
+        <a class="btn" href="{{ "posts/" | absURL }}">Browse all guides</a>
+        <a class="btn-ghost" href="#how-we-pick">How we pick</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>16</strong><span>in-depth guides</span></div>
+        <div><strong>4</strong><span>categories</span></div>
+        <div><strong>0</strong><span>paid placements</span></div>
+      </div>
+    </div>
+    <div class="hero2-visual">
+      <img src="{{ "images/site/pickzella-hero.webp" | relURL }}" alt="Top-rated fitness, tech and home products picked by Pickzella" fetchpriority="high" width="1200" height="900">
+      <div class="float-card fc1">
+        <span class="fc-tag">Top pick</span>
+        <strong>Resistance bands set</strong>
+        <span class="fc-meta">Fitness · 9 min read</span>
+      </div>
+      <div class="float-card fc2">
+        <span class="fc-tag">Trending</span>
+        <strong>Wireless earbuds under $50</strong>
+        <span class="fc-meta">Tech · 5 min read</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wide">
+
+  {{/* ============ TRENDING STRIP ============ */}}
+  <div class="section-head"><h2>Trending this week</h2></div>
+  <div class="trend-strip">
+    {{ range $i, $p := first 4 $posts }}
+    <a class="trend-card" href="{{ $p.RelPermalink }}">
+      <span class="trend-num">{{ add $i 1 }}</span>
+      <div>
+        <span class="kicker">{{ range first 1 $p.Params.categories }}{{ . }}{{ end }}</span>
+        <h3>{{ $p.Title }}</h3>
+        <span class="meta">{{ $p.ReadingTime }} min read</span>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+
+  {{/* ============ CATEGORY SHOWCASE ============ */}}
+  <div class="section-head"><h2>Shop by category</h2></div>
+  <div class="cat-showcase">
+    <a class="cat-card" href="{{ "categories/fitness/" | absURL }}">
+      <img src="{{ "images/site/pickzella-cat-fitness.webp" | relURL }}" alt="Fitness gear guides" loading="lazy" width="800" height="600">
+      <div class="cat-card-body"><h3>Fitness</h3><p>Home gym gear that earns its space.</p></div>
+    </a>
+    <a class="cat-card" href="{{ "categories/tech-gadgets/" | absURL }}">
+      <img src="{{ "images/site/pickzella-cat-tech.webp" | relURL }}" alt="Tech gadget guides" loading="lazy" width="800" height="600">
+      <div class="cat-card-body"><h3>Tech Gadgets</h3><p>Everyday tech, tested on value.</p></div>
+    </a>
+    <a class="cat-card" href="{{ "categories/home-and-kitchen/" | absURL }}">
+      <img src="{{ "images/site/pickzella-cat-home.webp" | relURL }}" alt="Home and kitchen guides" loading="lazy" width="800" height="600">
+      <div class="cat-card-body"><h3>Home &amp; Kitchen</h3><p>Tools that make home life easier.</p></div>
+    </a>
+    <a class="cat-card cat-card-text" href="{{ "categories/health/" | absURL }}">
+      <div class="cat-card-body"><h3>Health</h3><p>Recovery, rest and daily wellness picks.</p><span class="link-more">Explore guides →</span></div>
+    </a>
+  </div>
+
+  {{/* ============ LATEST GUIDES ============ */}}
+  <div class="section-head"><h2>Latest guides</h2><a href="{{ "posts/" | absURL }}">View all →</a></div>
+  <div class="grid">
+    {{ range first 6 (after 4 $posts) }}{{ $p := . }}
+    <a class="post-card" href="{{ $p.RelPermalink }}">
+      {{ with $p.Params.image }}<img src="{{ . }}" alt="{{ $p.Params.image_alt | default $p.Title }}" loading="lazy" width="800" height="450">{{ end }}
+      <div class="body">
+        <span class="kicker">{{ range first 1 $p.Params.categories }}{{ . }}{{ end }}</span>
+        <h3>{{ $p.Title }}</h3>
+        <p>{{ $p.Params.description | truncate 105 }}</p>
+        <div class="meta">{{ $p.Date.Format "Jan 2, 2006" }} · {{ $p.ReadingTime }} min</div>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+
+  {{/* ============ HOW WE PICK ============ */}}
+  <section class="how-pick" id="how-we-pick">
+    <div class="section-head"><h2>How we pick products</h2></div>
+    <p class="section-sub">Every guide follows the same research process — no paid placements, ever.</p>
+    <div class="steps">
+      <div class="step"><span class="step-num">1</span><h3>Define the use case</h3><p>Who the guide is for, stated up front — no one-size-fits-all claims.</p></div>
+      <div class="step"><span class="step-num">2</span><h3>Compare the specs</h3><p>Side-by-side numbers that actually affect ownership and daily use.</p></div>
+      <div class="step"><span class="step-num">3</span><h3>Read buyers in bulk</h3><p>Recurring praise and complaints across hundreds of reviews is signal.</p></div>
+      <div class="step"><span class="step-num">4</span><h3>Weigh value over hype</h3><p>90% of the performance for 50% of the price usually wins.</p></div>
+    </div>
+    <p class="fineprint">We earn from qualifying purchases via affiliate links — read our <a href="{{ "disclosure/" | absURL }}">affiliate disclosure</a>.</p>
+  </section>
+
+</div>
+
+{{/* ============ NEWSLETTER ============ */}}
+<section class="newsletter">
+  <div class="wide newsletter-grid">
+    <div>
+      <h2>One honest pick, every week.</h2>
+      <p>Join the list — a single well-researched product recommendation in your inbox. No spam, unsubscribe anytime.</p>
+    </div>
+    <form class="nl-form" action="#" method="post" onsubmit="return false">
+      <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+      <button class="btn btn-light" type="submit">Subscribe</button>
+    </form>
+  </div>
+  <p class="nl-note wide">Connect a form backend (Formspree, ConvertKit) to activate signups.</p>
+</section>
+{{ end }}
