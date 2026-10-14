@@ -1,0 +1,5 @@
+{{/* Pull quote: {{< pullquote cite="Source">Quote text{{< /pullquote >}} */}}
+<blockquote class="pullquote">
+  {{ .Inner | markdownify }}
+  {{ with .Get "cite" }}<cite>— {{ . }}</cite>{{ end }}
+</blockquote>
