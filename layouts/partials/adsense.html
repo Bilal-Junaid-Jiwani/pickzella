@@ -1,0 +1,32 @@
+{{/* ============================================================
+   AdSense slot partial.
+   Usage: {{ partial "adsense.html" (dict "slot" "mid-article" "Site" .Site) }}
+   Slots: below-header | mid-article | end-article | sidebar
+   If .Site.Params.adsenseID is empty, this renders NOTHING
+   (no broken ad tags, no console errors).
+   >>> TO ENABLE ADS: set params.adsenseID in hugo.toml, e.g.
+       adsenseID = "ca-pub-XXXXXXXXXXXXXXXX"
+   Then create one responsive "Display" ad unit per slot below and
+   paste each unit's data-ad-slot value into the map.
+   ============================================================ */}}
+{{ $id := .Site.Params.adsenseID }}
+{{ if $id }}
+  {{/* data-ad-slot values: replace with YOUR real ad-unit IDs from AdSense */}}
+  {{ $units := dict
+      "below-header" "1111111111"
+      "mid-article"  "2222222222"
+      "end-article"  "3333333333"
+      "sidebar"      "4444444444" }}
+  {{ $unit := index $units .slot | default "0000000000" }}
+  <div class="ad-slot ad-{{ .slot }}" role="complementary" aria-label="Advertisement">
+    <div class="ad-label">Advertisement</div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ $id }}" crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="{{ $id }}"
+         data-ad-slot="{{ $unit }}"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+{{ end }}
