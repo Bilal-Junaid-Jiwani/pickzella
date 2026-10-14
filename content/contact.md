@@ -1,6 +1,6 @@
 ---
 title: "Contact Us"
-description: "Get in touch with the DisplayJBZ team — questions, corrections, or product suggestions."
+description: "Get in touch with the Pickzella team — questions, corrections, or product suggestions."
 date: 2026-10-13
 lastmod: 2026-10-13
 type: "page"
@@ -53,5 +53,5 @@ the form will not deliver messages — the email above is the fallback.
 
 ## Other ways to reach us
 
-- **Pinterest:** [@displayjbz](https://www.pinterest.com/displayjbz/) — DM us or comment on any pin.
+- **Pinterest:** [@displayjbz](https://www.pinterest.com/displayjbz/) - DM us or comment on any pin.
 - **Corrections policy:** If you spot a factual error in any guide, tell us and we'll fix it with a visible correction note.

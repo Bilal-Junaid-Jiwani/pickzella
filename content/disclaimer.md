@@ -1,6 +1,6 @@
 ---
 title: "Disclaimer"
-description: "Important notices about product information, health content, and affiliate links on DisplayJBZ."
+description: "Important notices about product information, health content, and affiliate links on Pickzella."
 date: 2026-10-13
 lastmod: 2026-10-13
 type: "page"
@@ -10,7 +10,7 @@ type: "page"
 
 ### General information
 
-All content on DisplayJBZ is provided for general informational and educational purposes only. While we make reasonable efforts to keep guides accurate and up to date, product specifications, prices, and availability change frequently. **Always verify the current details on the retailer's website before making a purchase.** We are not responsible for discrepancies between our guides and a retailer's listing.
+All content on Pickzella is provided for general informational and educational purposes only. While we make reasonable efforts to keep guides accurate and up to date, product specifications, prices, and availability change frequently. **Always verify the current details on the retailer's website before making a purchase.** We are not responsible for discrepancies between our guides and a retailer's listing.
 
 ### Not professional advice
 

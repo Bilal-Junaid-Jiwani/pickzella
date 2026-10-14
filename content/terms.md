@@ -1,6 +1,6 @@
 ---
 title: "Terms of Use"
-description: "The rules for using DisplayJBZ content and services."
+description: "The rules for using Pickzella content and services."
 date: 2026-10-13
 lastmod: 2026-10-13
 type: "page"
@@ -10,7 +10,7 @@ type: "page"
 
 **Effective date:** October 13, 2026
 
-By accessing DisplayJBZ, you agree to these terms. If you don't agree, please don't use the site.
+By accessing Pickzella, you agree to these terms. If you don't agree, please don't use the site.
 
 ### 1. Content is for information only
 
@@ -22,7 +22,7 @@ We participate in affiliate programs including Amazon Associates. Links marked a
 
 ### 3. Intellectual property
 
-All original text, guides, and images created by DisplayJBZ are our property. You may:
+All original text, guides, and images created by Pickzella are our property. You may:
 
 - Share links to our articles freely (thank you!).
 - Quote brief excerpts with clear credit and a link back.
@@ -43,7 +43,7 @@ The site is provided "as is" without warranties of any kind. We work hard to kee
 
 ### 7. Limitation of liability
 
-To the maximum extent permitted by law, DisplayJBZ is not liable for any loss arising from your use of the site or reliance on its content, including purchasing decisions.
+To the maximum extent permitted by law, Pickzella is not liable for any loss arising from your use of the site or reliance on its content, including purchasing decisions.
 
 ### 8. Changes
 

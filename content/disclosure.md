@@ -1,6 +1,6 @@
 ---
 title: "Affiliate Disclosure"
-description: "How DisplayJBZ earns money: our Amazon Associates participation and editorial independence policy."
+description: "How Pickzella earns money: our Amazon Associates participation and editorial independence policy."
 date: 2026-10-13
 lastmod: 2026-10-13
 type: "page"
@@ -8,11 +8,11 @@ type: "page"
 
 ## Affiliate Disclosure
 
-**DisplayJBZ is reader-supported.** When you buy through links on our site, we may earn an affiliate commission — at no extra cost to you.
+**Pickzella is reader-supported.** When you buy through links on our site, we may earn an affiliate commission — at no extra cost to you.
 
 ### Amazon Associates
 
-DisplayJBZ is a participant in the **Amazon Services LLC Associates Program**, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.
+Pickzella is a participant in the **Amazon Services LLC Associates Program**, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.
 
 That means: if you click an Amazon link on this site and make a purchase, Amazon pays us a small percentage of the sale. The price you pay is exactly the same as if you'd gone to Amazon directly.
 

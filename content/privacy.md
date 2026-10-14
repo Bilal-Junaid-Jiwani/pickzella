@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-description: "How DisplayJBZ collects, uses, and protects your information."
+description: "How Pickzella collects, uses, and protects your information."
 date: 2026-10-13
 lastmod: 2026-10-13
 type: "page"
@@ -10,7 +10,7 @@ type: "page"
 
 **Effective date:** October 13, 2026
 
-DisplayJBZ ("we", "our") respects your privacy. This policy explains what information we collect when you visit our website and how we use it.
+Pickzella ("we", "our") respects your privacy. This policy explains what information we collect when you visit our website and how we use it.
 
 ### 1. Information we collect
 
