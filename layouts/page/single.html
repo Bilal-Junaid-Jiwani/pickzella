@@ -1,0 +1,10 @@
+{{ define "main" }}
+<article class="article">
+  <div class="wrap">
+    <h1>{{ .Title }}</h1>
+    <p class="byline">Last updated {{ .Lastmod.Format "January 2, 2006" }}</p>
+    {{ .Content }}
+    {{ partial "adsense.html" (dict "slot" "end-article" "Site" .Site) }}
+  </div>
+</article>
+{{ end }}
