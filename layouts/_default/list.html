@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="wide" style="padding:40px 20px">
+  <h1 style="letter-spacing:-.5px">{{ .Title }}</h1>
+  {{ with .Description }}<p style="color:var(--muted)">{{ . }}</p>{{ end }}
+  <div class="grid">
+    {{ range .Pages.ByDate.Reverse }}{{ $p := . }}
+    <a class="post-card" href="{{ $p.RelPermalink }}">
+      {{ with $p.Params.image }}<img src="{{ . }}" alt="{{ $p.Params.image_alt | default $p.Title }}" loading="lazy" width="800" height="450">{{ end }}
+      <div class="body">
+        <span class="kicker">{{ with $p.Params.categories }}{{ range first 1 . }}{{ . }}{{ end }}{{ end }}</span>
+        <h3>{{ $p.Title }}</h3>
+        <p>{{ $p.Params.description | truncate 110 }}</p>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
