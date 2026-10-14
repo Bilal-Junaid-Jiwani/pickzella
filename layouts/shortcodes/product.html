@@ -34,8 +34,7 @@
   {{ with .Get "image" }}
   <div class="pimg"><img src="{{ . }}" alt="{{ $.Get "image_alt" | default ($.Get "name") }}" loading="lazy" width="400" height="600"></div>
   {{ end }}
-  <p><strong>Key features:</strong></p>
-  <ul>
+  <ul class="pfeatures">
     {{ range split (.Get "features" | default "") "|" }}
       {{ if . }}<li>{{ . }}</li>{{ end }}
     {{ end }}
@@ -54,7 +53,7 @@
     <span class="price-note">Price checked {{ now.Format "January 2006" }} · may change</span>
   </div>
   {{ if not $tag }}
-  <p class="tag-warning">⚠ No Amazon Associates tag configured — set <code>params.amazonTag</code> in <code>hugo.toml</code> before launch.</p>
+  <p class="tag-warning">⚠ Buying links go live once our Amazon Associates account is approved.</p>
   {{ end }}
   <div style="clear:both"></div>
 </div>
