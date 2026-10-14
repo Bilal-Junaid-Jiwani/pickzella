@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  {{ partial "header.html" . }}
+  {{ partial "adsense.html" (dict "slot" "below-header" "Site" .Site) }}
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+
+  {{/* Search overlay — vanilla JS, no frameworks */}}
+  <div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Search">
+    <div class="search-box">
+      <input type="search" id="searchInput" placeholder="Search guides… (e.g. air fryer)" aria-label="Search articles">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <script>
+  /* Pin It hover buttons (Pinterest-friendly, no external JS) */
+  document.querySelectorAll('.article img, .post-card img').forEach(function(img){
+    if (img.closest('.pin-wrap')) return;
+    var wrap = document.createElement('span');
+    wrap.className = 'pin-wrap';
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+    var a = document.createElement('a');
+    a.className = 'pin-btn'; a.textContent = 'Pin it';
+    a.href = 'https://www.pinterest.com/pin/create/button/?url='
+      + encodeURIComponent(location.href)
+      + '&media=' + encodeURIComponent(img.src)
+      + '&description=' + encodeURIComponent(img.alt || document.title);
+    a.target = '_blank'; a.rel = 'noopener';
+    wrap.appendChild(a);
+  });
+  /* Site search — filters a Hugo-generated JSON index */
+  (function(){
+    var overlay = document.getElementById('searchOverlay'),
+        input = document.getElementById('searchInput'),
+        results = document.getElementById('searchResults'),
+        index = null;
+    function open(){ overlay.classList.add('open'); input.focus(); load(); }
+    function close(){ overlay.classList.remove('open'); input.value=''; results.innerHTML=''; }
+    function load(){
+      if (index) return;
+      fetch('{{ "index.json" | absURL }}').then(function(r){ return r.json(); })
+        .then(function(d){ index = d; });
+    }
+    function render(q){
+      if (!index || q.length < 2){ results.innerHTML=''; return; }
+      q = q.toLowerCase();
+      var hits = index.filter(function(p){
+        return (p.title+' '+p.excerpt+' '+p.category).toLowerCase().indexOf(q) > -1;
+      }).slice(0, 8);
+      results.innerHTML = hits.length ? hits.map(function(p){
+        return '<a href="'+p.url+'"><span class="rk">'+p.category+
+          '</span><span class="rt">'+p.title+'</span></a>';
+      }).join('') : '<a><span class="rt">No guides found — try another keyword.</span></a>';
+    }
+    document.getElementById('searchOpen').addEventListener('click', open);
+    overlay.addEventListener('click', function(e){ if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+    input.addEventListener('input', function(){ render(input.value.trim()); });
+  })();
+  /* Scroll reveal — subtle, respects reduced motion; safety net included */
+  (function(){
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var els = document.querySelectorAll('.trend-card, .cat-card, .post-card, .step, .how-pick');
+    els.forEach(function(el){ el.classList.add('reveal'); });
+    function showAll(){
+      document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ el.classList.add('in'); });
+    }
+    if (!('IntersectionObserver' in window)){ showAll(); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold: 0.12});
+    els.forEach(function(el){ io.observe(el); });
+    /* safety net: never leave content hidden (e.g. IO quirks, print) */
+    setTimeout(showAll, 2500);
+  })();
+  </script>
+
+  {{/* Newsletter popup — professional split design, once per visitor */}}
+  <div class="nl-popup" id="nlPopup" role="dialog" aria-modal="true" aria-label="Subscribe to Pickzella newsletter" hidden>
+    <div class="nl-popup-card">
+      <button class="nl-popup-close" id="nlPopupClose" aria-label="Close">✕</button>
+      <div class="nl-popup-media">
+        <img src="{{ "images/site/pickzella-hero.webp" | relURL }}" alt="Top-rated products picked by Pickzella" loading="lazy" width="800" height="600">
+      </div>
+      <div class="nl-popup-body">
+        <span class="nl-popup-badge"><span class="dot"></span>Weekly picks</span>
+        <h2>One honest pick,<br>every week.</h2>
+        <p>A single well-researched product recommendation in your inbox. No spam, no fluff — unsubscribe anytime.</p>
+        <form class="nl-popup-form" action="#" method="post" onsubmit="return false">
+          <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
+        <p class="nl-popup-note">Join smart shoppers who buy once and buy right.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* Newsletter popup — shows once per visitor (scroll 55% or 22s), remembers choice */
+  (function(){
+    var KEY_SEEN = 'pkz_nl_seen', KEY_DONE = 'pkz_nl_done';
+    try {
+      if (localStorage.getItem(KEY_DONE)) return;
+      if (sessionStorage.getItem(KEY_SEEN)) return;
+    } catch(e){ return; }
+    var popup = document.getElementById('nlPopup'),
+        closeBtn = document.getElementById('nlPopupClose'),
+        shown = false;
+    function show(){
+      if (shown) return; shown = true;
+      popup.hidden = false;
+      requestAnimationFrame(function(){ popup.classList.add('open'); });
+      document.body.style.overflow = 'hidden';
+      try { sessionStorage.setItem(KEY_SEEN, '1'); } catch(e){}
+    }
+    function hide(done){
+      popup.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(function(){ popup.hidden = true; }, 300);
+      try { if (done) localStorage.setItem(KEY_DONE, '1'); } catch(e){}
+    }
+    closeBtn.addEventListener('click', function(){ hide(false); });
+    popup.addEventListener('click', function(e){ if (e.target === popup) hide(false); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && shown) hide(false); });
+    popup.querySelector('form').addEventListener('submit', function(){
+      hide(true);
+    });
+    var timer = setTimeout(show, 22000);
+    function onScroll(){
+      var h = document.documentElement,
+          pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+      if (pct > 0.55) { clearTimeout(timer); show(); window.removeEventListener('scroll', onScroll); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>
