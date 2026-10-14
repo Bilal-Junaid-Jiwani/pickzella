@@ -1,0 +1,125 @@
+{{ define "main" }}
+<article class="article">
+  <div class="wrap">
+
+    <p class="kicker" style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700">
+      {{ range .Params.categories }}<a href="{{ (printf "categories/%s/" (. | urlize)) | absURL }}" style="text-decoration:none">{{ . }}</a> {{ end }}
+    </p>
+    <h1>{{ .Title }}</h1>
+    <div class="byline-v2">
+      <span class="avatar" aria-hidden="true">P</span>
+      <div class="who">
+        <strong>{{ .Params.author | default "Pickzella Team" }}</strong>
+        <span>Published {{ .Date.Format "January 2, 2006" }}{{ if ne (.Date.Format "2006-01-02") (.Lastmod.Format "2006-01-02") }} · Updated {{ .Lastmod.Format "January 2, 2006" }}{{ end }} · {{ .ReadingTime }} min read</span>
+      </div>
+    </div>
+
+    {{/* Auto affiliate disclosure when the product shortcode was used */}}
+    {{ if .Page.Scratch.Get "hasAffiliate" }}{{ partial "disclosure-box.html" . }}{{ end }}
+
+    {{ with .Params.image }}
+    <div class="hero-img">
+      <img src="{{ . }}" alt="{{ $.Params.image_alt | default $.Title }}" width="1200" height="630" fetchpriority="high">
+    </div>
+    {{ end }}
+
+    {{/* GEO/AEO: Quick Answer box — the 40–60 word direct answer AI engines quote */}}
+    {{ with .Params.quick_answer }}
+    <div class="quick-answer" role="note" aria-label="Quick answer">
+      <strong>Quick Answer</strong>
+      <p style="margin:0">{{ . }}</p>
+    </div>
+    {{ end }}
+
+    {{/* Verdict box — the 30-second summary (Tom's Guide pattern) */}}
+    {{ with .Params.verdict }}
+    <div class="verdict" role="note" aria-label="Our verdict">
+      <strong class="vlabel">Our verdict in 30 seconds</strong>
+      <p>{{ . }}</p>
+    </div>
+    {{ end }}
+
+    {{/* Key takeaways */}}
+    {{ with .Params.takeaways }}
+    <div class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
+    </div>
+    {{ end }}
+
+    {{/* Table of contents */}}
+    {{ if gt (len .TableOfContents) 80 }}
+    <div class="toc">
+      <h2>On this page</h2>
+      {{ .TableOfContents }}
+    </div>
+    {{ end }}
+
+    {{/* Article body with a mid-article AdSense slot after the 2nd paragraph */}}
+    {{ $parts := split .Content "</p>" }}
+    {{ $total := len $parts }}
+    {{ range $i, $p := $parts }}
+      {{ if lt $i (sub $total 1) }}
+        {{ $p | safeHTML }}</p>
+        {{ if eq $i 2 }}{{ partial "adsense.html" (dict "slot" "mid-article" "Site" $.Site) }}{{ end }}
+      {{ else }}
+        {{ $p | safeHTML }}
+      {{ end }}
+    {{ end }}
+
+    {{/* AEO: FAQ section (also emitted as FAQPage JSON-LD in <head>) */}}
+    {{ with .Params.faqs }}
+    <section class="faq" aria-label="Frequently asked questions">
+      <h2>Frequently Asked Questions</h2>
+      {{ range . }}
+      <details>
+        <summary>{{ .q }}</summary>
+        <p>{{ .a }}</p>
+      </details>
+      {{ end }}
+    </section>
+    {{ end }}
+
+    {{/* How we test — methodology trust strip (RTINGS/Healthline pattern) */}}
+    <section class="how-test" aria-label="How we test">
+      <h2>How we test and pick</h2>
+      <p>No paid placements. Every guide follows the same four steps:</p>
+      <ol>
+        <li><strong>Research</strong>Define the use case and shortlist the most-bought options.</li>
+        <li><strong>Compare specs</strong>Line up the numbers that affect real ownership.</li>
+        <li><strong>Read buyers</strong>Recurring praise and complaints across reviews is signal.</li>
+        <li><strong>Score value</strong>Performance per dollar decides the Top Pick.</li>
+      </ol>
+    </section>
+
+    {{/* Internal linking: related guides in the same category */}}
+    {{ $related := where (where .Site.RegularPages "Section" "posts") ".Params.categories" "intersect" .Params.categories }}
+    {{ $related = where $related "RelPermalink" "!=" .RelPermalink }}
+    {{ with first 3 $related }}
+    <section class="related" aria-label="Related guides" style="margin:40px 0">
+      <h2>Related guides</h2>
+      <div class="grid" style="margin:20px 0">
+        {{ range . }}{{ $p := . }}
+        <a class="post-card" href="{{ $p.RelPermalink }}">
+          {{ with $p.Params.image }}<img src="{{ . }}" alt="{{ $p.Params.image_alt | default $p.Title }}" loading="lazy" width="800" height="450">{{ end }}
+          <div class="body">
+            <span class="kicker">{{ range first 1 $p.Params.categories }}{{ . }}{{ end }}</span>
+            <h3>{{ $p.Title }}</h3>
+          </div>
+        </a>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    {{ partial "adsense.html" (dict "slot" "end-article" "Site" .Site) }}
+
+    {{ with .Params.tags }}
+    <p style="font-size:14px;color:var(--muted)">Tagged:
+      {{ range . }}<a href="{{ (printf "tags/%s/" (. | urlize)) | absURL }}">{{ . }}</a> {{ end }}
+    </p>
+    {{ end }}
+
+  </div>
+</article>
+{{ end }}
