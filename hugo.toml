@@ -1,0 +1,51 @@
+# ============================================================
+# Pickzella — Hugo configuration
+# ============================================================
+# >>> BEFORE LAUNCH: set these three values <<<
+# 1. baseURL   -> your real domain (keep the trailing slash)
+# 2. amazonTag -> your Amazon Associates tracking ID, e.g. "pickzella-20"
+# 3. adsenseID -> your Google AdSense publisher ID, e.g. "ca-pub-1234567890123456"
+# Until (2) and (3) are filled in, affiliate links carry a visible
+# placeholder warning and ad slots render NOTHING (no broken tags).
+# ============================================================
+
+baseURL = 'https://example.com/'
+title = 'Pickzella'
+languageCode = 'en-us'
+
+[params]
+  description = 'Honest, research-backed product roundups for fitness, tech gadgets, and home & kitchen — plus practical buying guides.'
+  amazonTag = ''     # <<< PASTE YOUR AMAZON ASSOCIATES TAG HERE (e.g. "pickzella-20")
+  adsenseID = ''     # <<< PASTE YOUR ADSENSE PUBLISHER ID HERE (e.g. "ca-pub-XXXXXXXXXXXXXXXX")
+  pinterestProfile = 'https://www.pinterest.com/displayjbz/'
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true   # allows raw HTML (tables, etc.) inside markdown content
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[outputs]
+  home = ['HTML', 'RSS', 'JSON', 'Robots']
+
+[outputFormats]
+[outputFormats.Robots]
+  mediaType = "text/plain"
+  baseName = "robots"
+  isPlainText = true
+  notAlternative = true
+  [outputFormats.JSON]
+    mediaType = 'application/json'
+    baseName = 'index'
+    isPlainText = true
+
+[sitemap]
+  changefreq = 'weekly'
+  filename = 'sitemap.xml'
+  priority = 0.5
