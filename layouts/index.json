@@ -1,0 +1,9 @@
+{{/* Search index: title, url, excerpt, category for every post */}}
+{{- $pages := where .Site.RegularPages "Section" "posts" -}}
+[
+{{- range $i, $p := $pages }}{{ if $i }},{{ end }}
+{"title":{{ $p.Title | jsonify }},"url":{{ $p.RelPermalink | jsonify }},
+ "excerpt":{{ ($p.Params.description | truncate 120) | jsonify }},
+ "category":{{ (index $p.Params.categories 0 | default "") | jsonify }}}
+{{- end }}
+]
