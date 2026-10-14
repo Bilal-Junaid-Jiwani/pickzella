@@ -1,7 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+  /* Pickzella theme — runs before first paint to avoid a flash.
+     Stored choice wins; otherwise follows the OS preference. */
+  (function(){
+    try{
+      var t = localStorage.getItem('pickzella-theme');
+      if (t !== 'dark' && t !== 'light'){
+        t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    }catch(e){
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+  </script>
   {{ partial "head.html" . }}
+  {{ $dark := resources.Get "css/dark.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $dark.RelPermalink }}" integrity="{{ $dark.Data.Integrity }}">
 </head>
 <body>
   {{ partial "header.html" . }}
@@ -142,6 +159,20 @@
       if (pct > 0.55) { clearTimeout(timer); show(); window.removeEventListener('scroll', onScroll); }
     }
     window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+
+  <script>
+  /* Dark mode toggle — flips data-theme and persists the choice */
+  (function(){
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      var next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('pickzella-theme', next); } catch(e){}
+    });
   })();
   </script>
 </body>

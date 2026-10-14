@@ -41,6 +41,22 @@
     {{ end }}
   </div>
 
+  {{/* ============ FRESHLY UPDATED ============ */}}
+  <div class="section-head"><h2>Freshly updated</h2></div>
+  <div class="grid">
+    {{ $byLastmod := sort $posts "Lastmod" "desc" }}
+    {{ range first 4 (after 4 $byLastmod) }}{{ $p := . }}
+    <a class="post-card" href="{{ $p.RelPermalink }}">
+      {{ with $p.Params.image }}<img src="{{ . }}" alt="{{ $p.Params.image_alt | default $p.Title }}" loading="lazy" width="800" height="450">{{ end }}
+      <div class="body">
+        <span class="kicker">{{ range first 1 $p.Params.categories }}{{ . }}{{ end }}</span>
+        <h3>{{ $p.Title }}</h3>
+        <div class="meta"><span class="updated-badge">Updated {{ $p.Lastmod.Format "Jan 2006" }}</span></div>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+
   {{/* ============ CATEGORY SHOWCASE ============ */}}
   <div class="section-head"><h2>Shop by category</h2></div>
   <div class="cat-showcase">
@@ -50,7 +66,7 @@
     </a>
     <a class="cat-card" href="{{ "categories/tech-gadgets/" | absURL }}">
       <img src="{{ "images/site/pickzella-cat-tech.webp" | relURL }}" alt="Tech gadget guides" loading="lazy" width="800" height="600">
-      <div class="cat-card-body"><h3>Tech Gadgets</h3><p>Everyday tech, tested on value.</p></div>
+      <div class="cat-card-body"><h3>Tech Gadgets</h3><p>Everyday tech, researched for value.</p></div>
     </a>
     <a class="cat-card" href="{{ "categories/home-and-kitchen/" | absURL }}">
       <img src="{{ "images/site/pickzella-cat-home.webp" | relURL }}" alt="Home and kitchen guides" loading="lazy" width="800" height="600">
@@ -58,6 +74,28 @@
     </a>
     <a class="cat-card cat-card-text" href="{{ "categories/health/" | absURL }}">
       <div class="cat-card-body"><h3>Health</h3><p>Recovery, rest and daily wellness picks.</p><span class="link-more">Explore guides →</span></div>
+    </a>
+  </div>
+
+  {{/* ============ SHOP BY BUDGET ============ */}}
+  <div class="section-head"><h2>Shop by budget</h2></div>
+  <p class="section-sub">Guides where our researched picks stay under budget.</p>
+  <div class="budget-grid">
+    <a class="budget-card" href="{{ "under-50/" | absURL }}">
+      <span class="budget-price">$50</span>
+      <div>
+        <h3>Best picks under $50</h3>
+        <p>Small upgrades that earn their price.</p>
+      </div>
+      <span class="budget-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="budget-card" href="{{ "under-100/" | absURL }}">
+      <span class="budget-price">$100</span>
+      <div>
+        <h3>Best picks under $100</h3>
+        <p>Bigger buys, still sensible money.</p>
+      </div>
+      <span class="budget-arrow" aria-hidden="true">→</span>
     </a>
   </div>
 
@@ -74,6 +112,32 @@
       </div>
     </a>
     {{ end }}
+  </div>
+
+  {{/* ============ COMPARISON SPOTLIGHT ============ */}}
+  <div class="section-head"><h2>Comparison spotlight</h2></div>
+  <p class="section-sub">The honest either-or calls, straight from our guides.</p>
+  <div class="compare-grid">
+    <a class="compare-card" href="{{ "posts/best-wireless-earbuds-under-50-2026/" | absURL }}">
+      <h3 class="vs-line">Budget buds <span class="vs-word">vs</span> $150+ flagships</h3>
+      <p>Sub-$50 buds nail sound and battery. What you give up: mic quality, advanced noise cancelling, and premium apps.</p>
+      <span class="compare-link">Read the guide →</span>
+    </a>
+    <a class="compare-card" href="{{ "posts/best-air-fryers-small-kitchens-2026/" | absURL }}">
+      <h3 class="vs-line">Basket <span class="vs-word">vs</span> oven-style air fryers</h3>
+      <p>Basket models crisp better and clean easier. Oven styles do more, but eat counter space.</p>
+      <span class="compare-link">Read the guide →</span>
+    </a>
+    <a class="compare-card" href="{{ "posts/best-nonstick-cookware-sets-2026/" | absURL }}">
+      <h3 class="vs-line">Ceramic <span class="vs-word">vs</span> traditional nonstick</h3>
+      <p>Traditional nonstick lasts longer with care. Ceramic starts PFAS-free, but its slickness fades faster.</p>
+      <span class="compare-link">Read the guide →</span>
+    </a>
+    <a class="compare-card" href="{{ "posts/best-adjustable-dumbbells-small-spaces-2026/" | absURL }}">
+      <h3 class="vs-line">Dial <span class="vs-word">vs</span> plate-loaded dumbbells</h3>
+      <p>Dial-adjust changes weight in 3 seconds but hates being dropped. Plate-loaded takes longer, and nearly nothing breaks.</p>
+      <span class="compare-link">Read the guide →</span>
+    </a>
   </div>
 
   {{/* ============ HOW WE PICK ============ */}}
@@ -110,6 +174,7 @@
           <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
           <button class="btn btn-light" type="submit">Subscribe free</button>
         </form>
+        <p class="nl-checklists">Free checklists: <a href="{{ "checklists/earbuds-buying-checklist/" | absURL }}">Earbuds</a>, <a href="{{ "checklists/air-fryer-buying-checklist/" | absURL }}">Air fryer</a>, <a href="{{ "checklists/home-gym-checklist/" | absURL }}">Home gym</a></p>
       </div>
       <div class="nl-card-art">
         <img src="{{ "images/site/pickzella-hero.webp" | relURL }}" alt="Top-rated products researched by Pickzella" loading="lazy" width="800" height="600">

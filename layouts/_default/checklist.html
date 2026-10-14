@@ -1,0 +1,95 @@
+{{ define "main" }}
+<style>
+/* Checklist layout: screen + print friendly. Scoped to this template only. */
+.checklist-page { padding: 48px 0 64px; }
+.checklist-page .kicker {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--accent); font-weight: 700; margin: 0 0 8px;
+}
+.checklist-page h1 { margin: 0 0 8px; letter-spacing: -0.5px; }
+.checklist-page .checklist-sub { color: var(--muted); max-width: 62ch; margin: 0 0 20px; }
+.checklist-actions {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin: 0 0 24px; padding: 14px 18px;
+  border: 1px solid var(--border); border-radius: 12px;
+  background: var(--surface, transparent);
+}
+.checklist-actions .btn { white-space: nowrap; }
+.checklist-actions .count { font-size: 14px; color: var(--muted); }
+/* Task list rendering */
+.checklist-body ul { list-style: none; padding: 0; margin: 0; }
+.checklist-body > ul > li {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 16px 18px; margin: 0 0 12px;
+  border: 1px solid var(--border); border-radius: 12px;
+  background: var(--surface, transparent);
+}
+.checklist-body li input[type="checkbox"] {
+  flex: none; width: 22px; height: 22px; margin-top: 2px;
+  accent-color: var(--accent); cursor: pointer;
+}
+.checklist-body li.done { opacity: 0.62; }
+.checklist-body li.done p { text-decoration: line-through; }
+.checklist-body li p { margin: 0; line-height: 1.55; }
+.checklist-foot { margin-top: 28px; font-size: 14px; color: var(--muted); }
+
+@media print {
+  .site-header, .site-footer, .search-overlay, .nl-popup, #nlPopup,
+  .checklist-actions, .pin-wrap .pin-btn { display: none !important; }
+  body { background: #fff !important; color: #111 !important; }
+  .checklist-page { padding: 0; }
+  .checklist-page .checklist-sub, .checklist-foot { color: #444 !important; }
+  .checklist-body > ul > li {
+    border: 1px solid #ddd; border-radius: 0; background: #fff !important;
+    break-inside: avoid; padding: 10px 12px; margin-bottom: 8px;
+  }
+  .checklist-body li.done { opacity: 1; }
+  .checklist-body li.done p { text-decoration: none; }
+  .checklist-body a { color: inherit; text-decoration: none; }
+  .checklist-page h1 { font-size: 24px; }
+}
+</style>
+
+<article class="checklist-page">
+  <div class="wrap">
+    <p class="kicker">Buying checklist</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="checklist-sub">{{ . }}</p>{{ end }}
+    <div class="checklist-actions">
+      <button class="btn" type="button" onclick="window.print()">Print checklist</button>
+      <span class="count" id="checkCount">0 of 10 checked</span>
+    </div>
+    <div class="checklist-body">
+      {{ .Content }}
+    </div>
+    <p class="checklist-foot">From Pickzella's researched buying guides. Policies and prices change; verify before you buy.</p>
+  </div>
+</article>
+
+<script>
+(function(){
+  var boxes = document.querySelectorAll('.checklist-body input[type="checkbox"]');
+  var count = document.getElementById('checkCount');
+  var key = 'pkz-checklist-' + location.pathname;
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e){}
+  function update(){
+    var done = 0;
+    boxes.forEach(function(b){ if (b.checked) done++; });
+    if (count) count.textContent = done + ' of ' + boxes.length + ' checked';
+  }
+  boxes.forEach(function(b, i){
+    b.disabled = false;
+    if (saved[i]) b.checked = true;
+    if (b.checked) b.closest('li').classList.add('done');
+    b.addEventListener('change', function(){
+      b.closest('li').classList.toggle('done', b.checked);
+      saved[i] = b.checked ? 1 : 0;
+      try { localStorage.setItem(key, JSON.stringify(saved)); } catch(e){}
+      update();
+    });
+  });
+  update();
+})();
+</script>
+{{ end }}

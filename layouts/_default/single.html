@@ -80,9 +80,21 @@
     </section>
     {{ end }}
 
-    {{/* How we test — methodology trust strip (RTINGS/Healthline pattern) */}}
-    <section class="how-test" aria-label="How we test">
-      <h2>How we test and pick</h2>
+    {{/* Guide changelog — renders only when the page front matter has a changelog: list */}}
+    {{ with .Params.changelog }}
+    <section class="changelog" aria-label="Guide changelog">
+      <h2>Changelog</h2>
+      <ul>
+        {{ range . }}
+        <li><span class="changelog-date">{{ (time .date).Format "Jan 2, 2006" }}</span>{{ .note }}</li>
+        {{ end }}
+      </ul>
+    </section>
+    {{ end }}
+
+    {{/* How we research — methodology trust strip (RTINGS/Healthline pattern) */}}
+    <section class="how-test" aria-label="How we research">
+      <h2>How we research and pick</h2>
       <p>No paid placements. Every guide follows the same four steps:</p>
       <ol>
         <li><strong>Research</strong>Define the use case and shortlist the most-bought options.</li>

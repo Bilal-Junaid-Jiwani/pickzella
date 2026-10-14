@@ -1,0 +1,128 @@
+{{ define "main" }}
+<div class="wrap">
+  <article class="article">
+    <p class="kicker">Pickzella tools</p>
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </article>
+
+  <div class="calc" aria-label="Cost per use calculator">
+    <style>
+      .calc{border:1px solid var(--line);border-radius:14px;background:var(--card);
+        padding:34px 32px;margin:10px 0 60px;box-shadow:0 2px 10px rgba(15,25,35,.04)}
+      .calc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:0 0 22px}
+      .calc-field label{display:block;font-weight:700;font-size:14.5px;margin-bottom:8px}
+      .calc-field .hint{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:6px}
+      .calc-field input{width:100%;border:1.5px solid var(--line);border-radius:8px;
+        padding:12px 14px;font-size:16px;font-family:var(--sans);color:var(--ink);
+        background:var(--bg);outline:none;transition:border-color .15s}
+      .calc-field input:focus{border-color:var(--accent)}
+      .calc-result{background:var(--wash);border:1px solid var(--line);border-radius:10px;
+        padding:22px 24px;margin:0 0 22px}
+      .calc-result .big{font-size:clamp(34px,4vw,44px);font-weight:800;letter-spacing:-.03em;
+        color:var(--accent-ink);margin:2px 0 8px}
+      html[data-theme="dark"] .calc-result .big{color:var(--accent)}
+      .calc-result .math{font-size:15px;color:var(--muted);margin:0;font-variant-numeric:tabular-nums}
+      .calc-result .also{font-size:14px;color:var(--muted);margin:8px 0 0}
+      .calc-err{color:#a33;font-size:14px;font-weight:600;margin:0 0 16px;min-height:20px}
+      html[data-theme="dark"] .calc-err{color:#e57373}
+      .calc-presets{border-top:1px solid var(--line);padding-top:20px}
+      .calc-presets p{font-size:14px;font-weight:700;color:var(--muted);margin:0 0 12px}
+      .calc-presets .row{display:flex;gap:10px;flex-wrap:wrap}
+      .calc-preset{border:1px solid var(--line);background:var(--wash);border-radius:999px;
+        padding:9px 18px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;
+        font-family:var(--sans);transition:border-color .15s}
+      .calc-preset:hover{border-color:var(--accent);color:var(--accent-ink)}
+      html[data-theme="dark"] .calc-preset:hover{color:var(--accent)}
+      .calc .btn{border:none;cursor:pointer;font-family:var(--sans)}
+      .calc-note{font-size:13.5px;color:var(--faint);margin:18px 0 0;line-height:1.6}
+      @media(max-width:640px){.calc-grid{grid-template-columns:1fr}.calc{padding:24px 20px}}
+    </style>
+
+    <div class="calc-grid">
+      <div class="calc-field">
+        <label for="cpuPrice">Price ($)</label>
+        <input type="number" id="cpuPrice" min="0.01" step="0.01" inputmode="decimal" value="35" aria-describedby="cpuPriceHint">
+        <span class="hint" id="cpuPriceHint">What you pay, after tax</span>
+      </div>
+      <div class="calc-field">
+        <label for="cpuUses">Uses per week</label>
+        <input type="number" id="cpuUses" min="0.5" step="0.5" inputmode="decimal" value="5" aria-describedby="cpuUsesHint">
+        <span class="hint" id="cpuUsesHint">Realistic, not aspirational</span>
+      </div>
+      <div class="calc-field">
+        <label for="cpuYears">Expected years</label>
+        <input type="number" id="cpuYears" min="0.5" step="0.5" inputmode="decimal" value="2" aria-describedby="cpuYearsHint">
+        <span class="hint" id="cpuYearsHint">How long it should last</span>
+      </div>
+    </div>
+
+    <p class="calc-err" id="cpuErr" role="alert"></p>
+    <button type="button" class="btn" id="cpuGo">Calculate cost per use</button>
+
+    <div class="calc-result" style="margin-top:22px" aria-live="polite" id="cpuOut">
+      <p class="math" id="cpuMath">Enter your numbers and press calculate.</p>
+      <p class="big" id="cpuBig"></p>
+      <p class="also" id="cpuAlso"></p>
+    </div>
+
+    <div class="calc-presets">
+      <p>Try an example:</p>
+      <div class="row">
+        <button type="button" class="calc-preset" data-p="35" data-u="5" data-y="2">Budget earbuds: $35, 5x/week, 2 yrs</button>
+        <button type="button" class="calc-preset" data-p="89" data-u="3" data-y="5">Air fryer: $89, 3x/week, 5 yrs</button>
+        <button type="button" class="calc-preset" data-p="45" data-u="4" data-y="4">Yoga mat: $45, 4x/week, 4 yrs</button>
+      </div>
+    </div>
+
+    <p class="calc-note">The math is simple: price divided by total uses. It is an estimate, not a promise. Batteries fade, habits change, and cheap gear that breaks in month three costs more per use than quality gear that lasts.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var price = document.getElementById('cpuPrice'),
+      uses = document.getElementById('cpuUses'),
+      years = document.getElementById('cpuYears'),
+      err = document.getElementById('cpuErr'),
+      math = document.getElementById('cpuMath'),
+      big = document.getElementById('cpuBig'),
+      also = document.getElementById('cpuAlso');
+
+  function fmt(n){ return n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+  function calculate(){
+    var p = parseFloat(price.value), u = parseFloat(uses.value), y = parseFloat(years.value);
+    if (!(p > 0) || !(u > 0) || !(y > 0)){
+      err.textContent = 'Please enter numbers above zero for all three fields.';
+      big.textContent = ''; math.textContent = 'Enter your numbers and press calculate.'; also.textContent = '';
+      return;
+    }
+    err.textContent = '';
+    var totalUses = u * 52 * y;
+    var cpu = p / totalUses;
+    var perYear = p / y;
+    math.textContent = '$' + fmt(p) + ' ÷ (' + u + ' × 52 × ' + y + ') = $' + fmt(p)
+      + ' ÷ ' + Math.round(totalUses).toLocaleString('en-US') + ' uses';
+    big.textContent = '$' + cpu.toFixed(2) + ' per use';
+    also.textContent = 'That is about $' + fmt(perYear) + ' per year over ' + y
+      + (y === 1 ? ' year.' : ' years.');
+  }
+
+  document.getElementById('cpuGo').addEventListener('click', calculate);
+  [price, uses, years].forEach(function(el){
+    el.addEventListener('keydown', function(e){ if (e.key === 'Enter') calculate(); });
+  });
+  document.querySelectorAll('.calc-preset').forEach(function(b){
+    b.addEventListener('click', function(){
+      price.value = b.getAttribute('data-p');
+      uses.value = b.getAttribute('data-u');
+      years.value = b.getAttribute('data-y');
+      calculate();
+      document.getElementById('cpuOut').scrollIntoView({block:'nearest', behavior:'smooth'});
+    });
+  });
+  calculate();
+})();
+</script>
+{{ end }}

@@ -23,7 +23,7 @@ Pages carrying an affiliate disclosure notice contain links for which we may ear
 
 ### Reviews and opinions
 
-Product assessments reflect our research methodology (specification comparison, buyer-feedback pattern analysis, and value assessment) at the time of writing. Individual experiences vary. A product that suits most buyers may not suit you — consider your own needs, and where possible try products with a good return policy.
+Product assessments reflect our research methodology (specification comparison, buyer-feedback pattern analysis, and value assessment) at the time of writing. Individual experiences vary. A product that suits most buyers may not suit you, consider your own needs, and where possible try products with a good return policy.
 
 ### External links
 

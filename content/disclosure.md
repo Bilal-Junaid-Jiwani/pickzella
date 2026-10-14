@@ -8,7 +8,7 @@ type: "page"
 
 ## Affiliate Disclosure
 
-**Pickzella is reader-supported.** When you buy through links on our site, we may earn an affiliate commission — at no extra cost to you.
+**Pickzella is reader-supported.** When you buy through links on our site, we may earn an affiliate commission, at no extra cost to you.
 
 ### Amazon Associates
 
@@ -20,9 +20,9 @@ That means: if you click an Amazon link on this site and make a purchase, Amazon
 
 We want to be explicit, because trust is the whole business:
 
-1. **Commissions never determine rankings.** We compare products on specs, value, and buyer-feedback patterns first. A product that pays a higher commission has never — and will never — outrank a better product that pays less.
+1. **Commissions never determine rankings.** We compare products on specs, value, and buyer-feedback patterns first. A product that pays a higher commission has never, and will never, outrank a better product that pays less.
 2. **Every affiliate article carries a disclosure notice** at the top, so you always know the relationship exists before you read a single recommendation.
-3. **Placeholders are labeled.** While the site is being built out, some product cards are clearly marked "Placeholder — replace before launch." We will never present a placeholder as a tested pick.
+3. **Placeholders are labeled.** While the site is being built out, some product cards are clearly marked "Placeholder, replace before launch." We will never present a placeholder as a tested pick.
 4. **No paid placements.** Brands cannot pay for a spot in our roundups, for a better rank, or for a positive write-up.
 
 ### Other affiliate programs
@@ -31,4 +31,4 @@ If we join additional affiliate programs in the future (beyond Amazon), this pag
 
 ### Questions?
 
-If anything about our affiliate relationships is unclear, [contact us](/contact/) — we'll answer plainly.
+If anything about our affiliate relationships is unclear, [contact us](/contact/), we'll answer plainly.

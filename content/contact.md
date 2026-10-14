@@ -1,6 +1,6 @@
 ---
 title: "Contact Us"
-description: "Get in touch with the Pickzella team — questions, corrections, or product suggestions."
+description: "Get in touch with the Pickzella team, questions, corrections, or product suggestions."
 date: 2026-10-13
 lastmod: 2026-10-13
 type: "page"
@@ -13,16 +13,16 @@ Questions about a guide, spotted an error, or want us to cover a product categor
 **Email:** contact@example.com <!-- TODO: replace with your real contact email before launch -->
 
 <!-- ============================================================
-CONTACT FORM — BACKEND SETUP (read before launch)
+CONTACT FORM, BACKEND SETUP (read before launch)
 This form is wired for Formspree (https://formspree.io), a free form
-backend — no server code needed:
+backend, no server code needed:
   1. Create a free Formspree account and verify your email.
   2. Create a form; Formspree gives you an endpoint like
      https://formspree.io/f/abcdwxyz
   3. Replace "YOUR_FORMSPREE_ID" in the form action below with it.
-Alternatives: Netlify Forms (if hosted on Netlify — just add
+Alternatives: Netlify Forms (if hosted on Netlify, just add
 netlify attribute), Getform, or Basin. Until a backend is connected,
-the form will not deliver messages — the email above is the fallback.
+the form will not deliver messages, the email above is the fallback.
 ============================================================= -->
 <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="contact-form" style="max-width:560px;margin:24px 0">
   <p>

@@ -1,0 +1,20 @@
+{{/* Mistakes to avoid callout box. Editorial, non-numbered.
+     Usage: {{< mistakes title="5 mistakes to avoid" >}}
+              - **Lead.** Explanation.
+              - **Lead.** Explanation.
+            {{< /mistakes >}} */}}
+<style>
+.mistakes{background:var(--warn-soft);border:1px solid #f0dcc0;border-top:3px solid var(--warn);
+  border-radius:var(--radius);padding:22px 26px;margin:34px 0}
+.mistakes-title{margin:0 0 12px;font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.mistakes ul{list-style:none;margin:0;padding:0}
+.mistakes li{position:relative;padding-left:30px;margin-bottom:11px;font-size:16.5px;line-height:1.65}
+.mistakes li:last-child{margin-bottom:0}
+.mistakes li::before{content:"\2715";position:absolute;left:0;top:1px;color:var(--warn);
+  font-weight:800;font-size:15px}
+@media (max-width:640px){.mistakes{padding:18px 20px}}
+</style>
+<aside class="mistakes" aria-label="{{ .Get "title" | default "Mistakes to avoid" }}">
+  <p class="mistakes-title">{{ .Get "title" | default "Mistakes to avoid" }}</p>
+  {{ .Inner | markdownify }}
+</aside>

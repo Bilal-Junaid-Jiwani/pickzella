@@ -16,7 +16,7 @@ Pickzella ("we", "our") respects your privacy. This policy explains what informa
 
 **Information you provide.** If you contact us via email or our contact form, we receive your name, email address, and message content. We use this only to respond to you.
 
-**Automatically collected information.** Like most websites, our hosting may log standard technical data: your IP address, browser type, pages visited, and time spent. We use this in aggregate to understand which guides are useful — never to identify individuals.
+**Automatically collected information.** Like most websites, our hosting may log standard technical data: your IP address, browser type, pages visited, and time spent. We use this in aggregate to understand which guides are useful, never to identify individuals.
 
 **Cookies.** We use minimal cookies:
 
@@ -25,13 +25,13 @@ Pickzella ("we", "our") respects your privacy. This policy explains what informa
 
 ### 2. Affiliate links
 
-Some links on this site are affiliate links (e.g., Amazon). Clicking them takes you to a third-party retailer, whose own privacy policy then applies. We do not receive your personal data from these retailers — only aggregate, anonymized commission reports.
+Some links on this site are affiliate links (e.g., Amazon). Clicking them takes you to a third-party retailer, whose own privacy policy then applies. We do not receive your personal data from these retailers, only aggregate, anonymized commission reports.
 
 ### 3. Third-party services
 
-- **Amazon Associates** — affiliate link tracking (see our [Affiliate Disclosure](/disclosure/)).
-- **Google AdSense** — advertising (once enabled).
-- **Pinterest** — embedded "Pin it" buttons load Pinterest resources; Pinterest's privacy policy applies to those interactions.
+- **Amazon Associates**, affiliate link tracking (see our [Affiliate Disclosure](/disclosure/)).
+- **Google AdSense**, advertising (once enabled).
+- **Pinterest**, embedded "Pin it" buttons load Pinterest resources; Pinterest's privacy policy applies to those interactions.
 
 ### 4. Data sharing
 

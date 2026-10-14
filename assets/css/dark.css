@@ -1,0 +1,101 @@
+/* ============================================================
+   Pickzella — dark mode
+   Loaded AFTER style.css. Everything is scoped to
+   html[data-theme="dark"] so light mode is untouched.
+   Palette: the same teal accent, lifted for dark backgrounds.
+   ============================================================ */
+
+/* default (light) needs no overrides; declare the color scheme */
+html{color-scheme:light}
+
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#101418;
+  --ink:#e9edf0;
+  --muted:#a9b2bb;
+  --faint:#7d8791;
+  --line:#262d33;
+  --card:#171c21;
+  --wash:#141a1f;
+  --accent:#3fbfae;          /* teal, lifted so links read on dark */
+  --accent-ink:#8adfd2;
+  --accent-soft:#0f3a34;
+  --warn:#e09a3f;
+  --warn-soft:#241c0e;
+}
+
+/* ---------- header ---------- */
+html[data-theme="dark"] .site-header{background:var(--bg)}
+html[data-theme="dark"] .search-overlay{background:rgba(4,7,9,.68)}
+html[data-theme="dark"] .search-box{background:var(--card)}
+html[data-theme="dark"] .search-box input{background:transparent;color:var(--ink)}
+
+/* theme toggle button (base styles live here; style.css is untouched) */
+.theme-toggle{background:none;border:1px solid var(--line);border-radius:999px;
+  width:40px;height:40px;cursor:pointer;color:var(--ink);
+  display:flex;align-items:center;justify-content:center;flex:none;
+  transition:border-color .15s,color .15s}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.theme-toggle svg{width:19px;height:19px;display:block}
+.theme-toggle .icon-sun{display:none}
+html[data-theme="dark"] .theme-toggle .icon-sun{display:block}
+html[data-theme="dark"] .theme-toggle .icon-moon{display:none}
+
+/* ---------- homepage ---------- */
+html[data-theme="dark"] .hero{background:var(--bg)}
+html[data-theme="dark"] .hero2{background:linear-gradient(180deg,#131a1e 0%,var(--bg) 100%)}
+html[data-theme="dark"] .hero-badge{border-color:#1e4a43}
+html[data-theme="dark"] .hero2-visual>img{box-shadow:0 30px 70px rgba(0,0,0,.5)}
+html[data-theme="dark"] .cat-chips a{background:var(--card)}
+html[data-theme="dark"] .trend-card{background:var(--card)}
+html[data-theme="dark"] .trend-card:hover{border-color:#1e4a43}
+html[data-theme="dark"] .trend-num{color:#12211e} /* fill sinks; teal outline carries it */
+html[data-theme="dark"] .cat-card-text{background:#0c1114}
+
+/* ---------- articles ---------- */
+html[data-theme="dark"] .quick-answer{border-left-color:var(--accent)}
+html[data-theme="dark"] .key-takeaways{background:#1b1811;border-color:#453b22}
+html[data-theme="dark"] .product-card{background:var(--card)}
+html[data-theme="dark"] .product-card.placeholder{background:#1d1810}
+html[data-theme="dark"] .disclosure-box{background:var(--warn-soft);
+  border-color:#57431f;color:#e6c88f}
+html[data-theme="dark"] .tag-warning{background:var(--warn-soft)}
+html[data-theme="dark"] .faq details{background:var(--card)}
+html[data-theme="dark"] .how-test li{background:var(--card)}
+html[data-theme="dark"] table.compare thead th{background:#1b2126;
+  color:var(--ink);border-color:#1b2126}
+html[data-theme="dark"] .cons strong{color:#e57373}
+html[data-theme="dark"] .pros strong{color:var(--accent-ink)}
+
+/* buttons keep AA contrast against dark surfaces */
+html[data-theme="dark"] .btn{background:#0b6a5b;color:#fff}
+html[data-theme="dark"] .btn:hover{background:#09584c;color:#fff}
+html[data-theme="dark"] .btn-light{background:#fff;color:#0b3b36}
+html[data-theme="dark"] .btn-light:hover{background:var(--accent-soft);color:#fff}
+html[data-theme="dark"] .btn-ghost{background:var(--card)}
+html[data-theme="dark"] .avatar{background:#0b6a5b;color:#fff}
+html[data-theme="dark"] .score-badge{background:#0b6a5b;border-color:var(--bg)}
+html[data-theme="dark"] .ph-flag{background:var(--warn);color:#241300}
+html[data-theme="dark"] .pullquote{border-left-color:var(--faint)}
+
+/* verdict + newsletter cards are already dark by design */
+html[data-theme="dark"] .verdict{box-shadow:0 16px 40px rgba(0,0,0,.4)}
+html[data-theme="dark"] .nl-card{box-shadow:0 30px 80px rgba(0,0,0,.45)}
+
+/* ---------- newsletter popup ---------- */
+html[data-theme="dark"] .nl-popup-card{background:var(--card)}
+html[data-theme="dark"] .nl-popup-form input{background:var(--bg);
+  border-color:var(--line);color:var(--ink)}
+html[data-theme="dark"] .nl-popup-close{background:var(--card)}
+
+/* ---------- misc ---------- */
+html[data-theme="dark"] .site-footer{background:#0c1013}
+html[data-theme="dark"] ::selection{background:var(--accent-soft)}
+
+/* quiz / calculator / suggest-box components use var() tokens,
+   so they inherit both themes with no extra overrides. */
+
+@media (prefers-reduced-motion:reduce){
+  .theme-toggle{transition:none}
+}

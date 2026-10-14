@@ -450,4 +450,46 @@ table.compare tbody tr:nth-child(even){background:var(--wash)}
   .nl-card-art{display:none}
   .nl-card-copy{padding:44px 30px}
   .nl-card .nl-form{flex-direction:column}
+  .budget-grid{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
 }
+
+/* ============ FRESHLY UPDATED STRIP ============ */
+.updated-badge{display:inline-block;font-size:12px;font-weight:700;color:var(--accent-ink);
+  background:var(--accent-soft);border:1px solid #d5e9e4;border-radius:999px;padding:4px 12px}
+
+/* ============ SHOP BY BUDGET ============ */
+.budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:6px 0 10px}
+.budget-card{display:flex;align-items:center;gap:22px;border:1px solid var(--line);border-radius:12px;
+  padding:26px 28px;background:var(--card);text-decoration:none;color:var(--ink);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
+.budget-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(15,25,35,.10);border-color:#cfe7e1}
+.budget-price{font-size:44px;font-weight:800;letter-spacing:-.03em;color:var(--accent);line-height:1;flex:none}
+.budget-card h3{margin:0 0 4px;font-size:19px}
+.budget-card p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.55}
+.budget-arrow{margin-left:auto;font-size:20px;color:var(--faint);flex:none;transition:transform .18s ease,color .18s}
+.budget-card:hover .budget-arrow{transform:translateX(4px);color:var(--accent)}
+
+/* ============ COMPARISON SPOTLIGHT ============ */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:6px 0 10px}
+.compare-card{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:26px 28px;
+  display:block;text-decoration:none;color:var(--ink);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
+.compare-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(15,25,35,.10);border-color:#cfe7e1}
+.vs-line{margin:0 0 10px;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.vs-word{color:var(--accent);font-weight:800;padding:0 6px;font-size:15px;letter-spacing:.06em}
+.compare-card p{margin:0 0 12px;color:var(--muted);font-size:14.5px;line-height:1.6}
+.compare-link{font-size:14px;font-weight:700;color:var(--accent-ink)}
+
+/* ============ GUIDE CHANGELOG (article pages) ============ */
+.changelog{border:1px solid var(--line);border-radius:12px;background:var(--wash);padding:24px 28px;margin:40px 0}
+.changelog h2{margin:0 0 12px;font-size:19px}
+.changelog ul{margin:0;padding:0;list-style:none}
+.changelog li{padding:10px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.6;color:var(--muted)}
+.changelog li:first-child{border-top:none}
+.changelog-date{display:inline-block;font-weight:700;color:var(--ink);margin-right:14px}
+
+/* ============ NEWSLETTER CHECKLISTS LINE ============ */
+.nl-checklists{margin-top:20px;font-size:13.5px;color:rgba(255,255,255,.75)}
+.nl-checklists a{color:#5EEAD4;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.nl-checklists a:hover{color:#fff}

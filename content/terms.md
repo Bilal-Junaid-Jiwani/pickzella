@@ -14,7 +14,7 @@ By accessing Pickzella, you agree to these terms. If you don't agree, please don
 
 ### 1. Content is for information only
 
-Our guides, roundups, and articles are for general informational purposes. They are not professional, medical, financial, or legal advice. Product availability, prices, and specifications change — always verify details on the retailer's page before buying.
+Our guides, roundups, and articles are for general informational purposes. They are not professional, medical, financial, or legal advice. Product availability, prices, and specifications change, always verify details on the retailer's page before buying.
 
 ### 2. Affiliate relationships
 
@@ -39,7 +39,7 @@ We link to retailers and other sites for your convenience. We're not responsible
 
 ### 6. No warranties
 
-The site is provided "as is" without warranties of any kind. We work hard to keep information accurate and current, but we can't guarantee it — manufacturers change products, and prices move.
+The site is provided "as is" without warranties of any kind. We work hard to keep information accurate and current, but we can't guarantee it, manufacturers change products, and prices move.
 
 ### 7. Limitation of liability
 

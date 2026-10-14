@@ -1,0 +1,162 @@
+{{ define "main" }}
+<div class="wrap">
+  <article class="article">
+    <p class="kicker">Pickzella quiz</p>
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </article>
+
+  <div class="quiz" id="quiz" aria-label="Earbuds finder quiz">
+    <style>
+      .quiz{border:1px solid var(--line);border-radius:14px;background:var(--card);
+        padding:34px 32px;margin:10px 0 60px;box-shadow:0 2px 10px rgba(15,25,35,.04)}
+      .quiz-progress{font-size:13px;font-weight:700;color:var(--muted);
+        text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+      .quiz-q{font-size:23px;letter-spacing:-.02em;margin:0 0 22px;line-height:1.3}
+      .quiz-opts{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px}
+      .quiz-opt{width:100%;text-align:left;background:var(--wash);
+        border:1px solid var(--line);border-radius:10px;padding:15px 18px;cursor:pointer;
+        font-size:16px;color:var(--ink);font-family:var(--sans);
+        transition:border-color .15s,background .15s,transform .12s}
+      .quiz-opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+      .quiz-opt:active{transform:scale(.985)}
+      .quiz-opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      .quiz-opt .sub{display:block;font-size:13.5px;color:var(--muted);margin-top:3px;font-weight:400}
+      .quiz-back{background:none;border:none;color:var(--accent);font-size:14.5px;
+        font-weight:600;cursor:pointer;padding:6px 0;text-decoration:underline;
+        text-underline-offset:3px}
+      .quiz-result h2{margin-top:0}
+      .quiz-result ul{margin:0 0 22px;padding-left:20px;color:var(--muted);font-size:16px}
+      .quiz-result li{margin-bottom:8px}
+      .quiz-result .btn{border:none;cursor:pointer;font-family:var(--sans)}
+      .quiz-cta{display:block;border:1px solid var(--line);border-top:3px solid var(--accent);
+        border-radius:10px;padding:22px;text-decoration:none;color:var(--ink);margin:0 0 22px}
+      .quiz-cta:hover{border-color:var(--accent)}
+      .quiz-cta .kicker{margin-bottom:6px}
+      .quiz-cta strong{font-size:19px;letter-spacing:-.01em;display:block;margin-bottom:6px}
+      .quiz-cta span{font-size:14.5px;color:var(--muted)}
+      .quiz-step{animation:quizIn .28s cubic-bezier(.16,1,.3,1)}
+      @keyframes quizIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+      @media (prefers-reduced-motion:reduce){.quiz-step{animation:none}.quiz-opt{transition:none}}
+      @media(max-width:640px){.quiz{padding:24px 20px}}
+    </style>
+
+    <div id="quizBody" aria-live="polite"></div>
+    <noscript><p>Please enable JavaScript to take this quiz, then read our
+      <a href="{{ "posts/best-wireless-earbuds-under-50-2026/" | relURL }}">wireless earbuds guide</a>.</p></noscript>
+  </div>
+</div>
+
+<script>
+(function(){
+  var QUESTIONS = [
+    {id:"use", q:"What will you use them for most?", opts:[
+      {v:"gym", label:"Gym and workouts", sub:"Sweat, movement, staying put"},
+      {v:"calls", label:"Work calls", sub:"Voice clarity matters most"},
+      {v:"travel", label:"Travel and commuting", sub:"Long wear, battery, isolation"},
+      {v:"everyday", label:"Everyday mix", sub:"A bit of everything"}
+    ]},
+    {id:"budget", q:"What is your budget?", opts:[
+      {v:"25", label:"Under $25", sub:"The cheapest decent pair"},
+      {v:"50", label:"$25 to $50", sub:"The value sweet spot"},
+      {v:"over", label:"Over $50", sub:"Willing to pay for extras"}
+    ]},
+    {id:"fit", q:"How do earbuds usually fit you?", opts:[
+      {v:"sport", label:"They fall out", sub:"I need a locked-in fit"},
+      {v:"comfort", label:"They fit fine", sub:"Comfort is my priority"},
+      {v:"unsure", label:"Not sure", sub:"I have never paid attention"}
+    ]},
+    {id:"battery", q:"How much battery do you need?", opts:[
+      {v:"max", label:"Maximum", sub:"30+ hours with the case"},
+      {v:"std", label:"Standard", sub:"A few days between charges"}
+    ]},
+    {id:"controls", q:"How do you want to control them?", opts:[
+      {v:"touch", label:"Touch controls", sub:"Tap to pause and skip"},
+      {v:"buttons", label:"Physical buttons", sub:"Clicks I can feel"},
+      {v:"nocare", label:"Does not matter", sub:"Phone controls are fine"}
+    ]}
+  ];
+
+  var GUIDE_URL = "{{ "posts/best-wireless-earbuds-under-50-2026/" | relURL }}";
+
+  var ADVICE = {
+    use:{
+      gym:"Prioritize an IPX5 sweat rating and a secure fit. Wing tips or fins are worth it here.",
+      calls:"Prioritize pairs marketed for call clarity with ENC mics. Honest caveat: budget mics struggle in wind, so keep important calls indoors.",
+      travel:"Prioritize 30+ hours of total case battery and comfortable long-wear fit. At this price, fit-based isolation matters more than mild ANC.",
+      everyday:"A balanced pair works best. Fit first, battery second, everything else third."
+    },
+    budget:{
+      "25":"Under $25, expect basic mics and no extras. The fit and battery advice below still applies.",
+      "50":"This is the sweet spot our guide is built around. You are shopping in the right band.",
+      over:"Above $50 you may get light ANC or an app with EQ. The guide explains what changes and what stays the same."
+    },
+    fit:{
+      sport:"Fit is your deciding factor. Try every tip size in the box, and test wing or foam tips.",
+      comfort:"Prioritize ergonomic shapes and light weight over sport fins.",
+      unsure:"Start with the tip-size test in the guide. Most people wear the wrong size for months."
+    },
+    battery:{
+      max:"Filter for 30+ hours of total battery (buds plus case).",
+      std:"Anything in the guide clears this bar, so let fit decide."
+    },
+    controls:{
+      touch:"Touch controls are standard on most budget pairs.",
+      buttons:"Physical buttons are rarer under $50. If they matter, check the specs on the listings linked from the guide.",
+      nocare:"One less thing to filter on."
+    }
+  };
+
+  var body = document.getElementById('quizBody');
+  var answers = {};
+  var step = 0;
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+  function render(){
+    if (step < QUESTIONS.length){
+      var q = QUESTIONS[step];
+      var html = '<div class="quiz-step">'
+        + '<p class="quiz-progress">Question ' + (step+1) + ' of ' + QUESTIONS.length + '</p>'
+        + '<h2 class="quiz-q">' + esc(q.q) + '</h2>'
+        + '<ul class="quiz-opts">';
+      q.opts.forEach(function(o){
+        html += '<li><button type="button" class="quiz-opt" data-v="' + esc(o.v) + '">'
+          + esc(o.label) + '<span class="sub">' + esc(o.sub) + '</span></button></li>';
+      });
+      html += '</ul>';
+      if (step > 0) html += '<button type="button" class="quiz-back" id="quizBack">&larr; Back</button>';
+      html += '</div>';
+      body.innerHTML = html;
+      body.querySelectorAll('.quiz-opt').forEach(function(b){
+        b.addEventListener('click', function(){
+          answers[q.id] = b.getAttribute('data-v');
+          step++;
+          render();
+        });
+      });
+      var back = document.getElementById('quizBack');
+      if (back) back.addEventListener('click', function(){ step--; render(); });
+    } else {
+      var tips = QUESTIONS.map(function(q){ return ADVICE[q.id][answers[q.id]]; });
+      var html = '<div class="quiz-step quiz-result">'
+        + '<p class="quiz-progress">Your result</p>'
+        + '<h2 class="quiz-q">Based on your answers, start with this guide.</h2>'
+        + '<a class="quiz-cta" href="' + GUIDE_URL + '">'
+        + '<span class="kicker">Recommended guide</span>'
+        + '<strong>Best Wireless Earbuds Under $50 in 2026</strong>'
+        + '<span>What to prioritize, what to skip, and how the trade-offs work at this price.</span></a>'
+        + '<p style="font-weight:700;margin-bottom:10px">Based on your answers, prioritize:</p>'
+        + '<ul>' + tips.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'
+        + '<button type="button" class="btn" id="quizRetry">Retake quiz</button></div>';
+      body.innerHTML = html;
+      document.getElementById('quizRetry').addEventListener('click', function(){
+        answers = {}; step = 0; render();
+      });
+    }
+  }
+
+  render();
+})();
+</script>
+{{ end }}
