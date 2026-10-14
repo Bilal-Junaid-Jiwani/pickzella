@@ -1,0 +1,49 @@
+{{/* SEO + GEO/AEO head: title, meta, OG, Twitter, canonical, JSON-LD */}}
+{{ $title := .Title }}
+{{ if .IsHome }}{{ $title = .Site.Title }}{{ else }}{{ $title = printf "%s | %s" .Title .Site.Title }}{{ end }}
+{{ $desc := .Params.description | default .Site.Params.description }}
+{{ $img := .Params.image | default "images/og-default.png" }}
+{{ $imgAbs := $img | absURL }}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+{{ $css := resources.Get "css/style.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{/* Open Graph (Pinterest reads these for Rich Pins) */}}
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:title" content="{{ .Title | default .Site.Title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ $imgAbs }}">
+<meta property="og:image:alt" content="{{ .Params.image_alt | default .Title }}">
+{{/* Twitter cards */}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title | default .Site.Title }}">
+<meta name="twitter:description" content="{{ $desc }}">
+<meta name="twitter:image" content="{{ $imgAbs }}">
+{{/* GEO/AEO: structured data so AI search engines can cite us */}}
+{{ if .IsHome }}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"{{ .Site.Title }}",
+ "url":"{{ .Site.BaseURL }}","description":"{{ .Site.Params.description }}"}
+</script>
+{{ end }}
+{{ if and .IsPage (eq .Section "posts") }}
+{{ $article := dict "@context" "https://schema.org" "@type" "Article"
+  "headline" .Title "description" $desc "image" $imgAbs
+  "datePublished" (.Date.Format "2006-01-02") "dateModified" (.Lastmod.Format "2006-01-02")
+  "author" (dict "@type" "Organization" "name" .Site.Title "url" .Site.BaseURL)
+  "publisher" (dict "@type" "Organization" "name" .Site.Title)
+  "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink) }}
+<script type="application/ld+json">{{ $article | jsonify | safeJS }}</script>
+{{ with .Params.faqs }}
+{{ $entities := slice }}
+{{ range . }}{{ $entities = $entities | append (dict "@type" "Question" "name" .q
+  "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end }}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $entities | jsonify | safeJS }}</script>
+{{ end }}
+{{ end }}
